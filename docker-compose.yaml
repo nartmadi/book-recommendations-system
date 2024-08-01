@@ -1,0 +1,13 @@
+services:
+  web:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: book-recommendation-app
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_RUN_HOST=0.0.0.0
