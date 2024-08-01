@@ -73,3 +73,16 @@ def get_likes():
     if not liked_books:
         return jsonify({"message": "No liked book title provided"}), 400
     return jsonify({"liked_books": liked_books})
+
+
+@app.route("/likes", methods=["DELETE"])
+def delete_like():
+    book_title = request.json.get("title")
+    if not book_title:
+        return jsonify({"error": "No book title provided"}), 400
+
+    if book_title in liked_books:
+        liked_books.remove(book_title)
+        return jsonify({"message": "Book removed from likes"}), 200
+    else:
+        return jsonify({"error": "Book not found in likes"}), 404
