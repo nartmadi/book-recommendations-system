@@ -71,5 +71,5 @@ def add_like():
 @app.route("/likes", methods=["GET"])
 def get_likes():
     if not liked_books:
-        return jsonify({"message": "No liked book"}), 400
+        return jsonify({"message": "No liked book title provided"}), 400
     return jsonify({"liked_books": liked_books})
