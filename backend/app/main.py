@@ -23,5 +23,8 @@ def search():
     results = df[
         df["title"].str.lower().str.contains(query, case=False, na=False, regex=False)
     ]
+    if results.empty:
+        return jsonify({"message": "No books found"}), 404
     search_results = results.to_dict(orient="records")
     return jsonify(search_results)
+
