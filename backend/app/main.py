@@ -29,13 +29,13 @@ def search():
     return jsonify(search_results)
 
 
-@app.route('/recommend', methods=['POST'])
+@app.route("/recommend", methods=["POST"])
 def recommend():
-    liked_books = request.json.get('liked_books', [])
+    liked_books = request.json.get("liked_books", [])
     if not liked_books:
         abort(400, description="No liked books provided")
 
-    liked_indices = df[df['title'].isin(liked_books)].index.tolist()
+    liked_indices = df[df["title"].isin(liked_books)].index.tolist()
     if not liked_indices:
         abort(404, description="Liked books not found in database")
 
@@ -43,6 +43,10 @@ def recommend():
     cosine_sim = cosine_similarity([user_profile], combined_features)
     sim_scores = list(enumerate(cosine_sim[0]))
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-    recommended_books = [df['title'].iloc[i[0]] for i in sim_scores if df['title'].iloc[i[0]] not in liked_books]
+    recommended_books = [
+        df["title"].iloc[i[0]]
+        for i in sim_scores
+        if df["title"].iloc[i[0]] not in liked_books
+    ]
 
     return jsonify(recommended_books[:10])
