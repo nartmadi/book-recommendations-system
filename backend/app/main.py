@@ -64,3 +64,8 @@ def add_like():
         return jsonify({"message": "Book added to likes"}), 200
     else:
         return jsonify({"message": "Book already in likes"}), 200
+
+
+@app.route('/likes', methods=['GET'])
+def get_likes():
+    return jsonify({"liked_books": liked_books})
