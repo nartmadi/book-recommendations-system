@@ -51,11 +51,13 @@ def recommend():
 
     return jsonify(recommended_books[:10])
 
+
 liked_books = []
 
-@app.route('/likes', methods=['POST'])
+
+@app.route("/likes", methods=["POST"])
 def add_like():
-    book_title = request.json.get('title')
+    book_title = request.json.get("title")
     if not book_title:
         return jsonify({"error": "No book title provided"}), 400
 
@@ -66,6 +68,6 @@ def add_like():
         return jsonify({"message": "Book already in likes"}), 200
 
 
-@app.route('/likes', methods=['GET'])
+@app.route("/likes", methods=["GET"])
 def get_likes():
     return jsonify({"liked_books": liked_books})
