@@ -15,7 +15,7 @@ df = pd.read_csv("models/books_data.csv")
 def search():
     query = request.args.get("query")
 
-    if not query or query.isspace():
+    if not query:
         return jsonify({"error": "No search query provided"}), 400
 
     query = re.sub(r"\W+", " ", query).strip().lower()
@@ -27,4 +27,3 @@ def search():
         return jsonify({"message": "No books found"}), 404
     search_results = results.to_dict(orient="records")
     return jsonify(search_results)
-
